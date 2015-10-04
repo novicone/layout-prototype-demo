@@ -1,0 +1,49 @@
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+#container {
+    font-size: 0px;
+    white-space: nowrap;
+    -webkit-user-select: none;
+}
+
+#container div {
+    font-size: 12px;
+    display: inline-block;
+    height: 100%;
+}
+
+.collapsed {
+    background-color: #ff0000 !important;
+}
+
+#left {
+    background-color: #abcdef;
+}
+
+#center {
+    background-color: #789abc;
+    position: relative;
+}
+
+#center .handle {
+    position: absolute;
+    width: 10px;
+    top: 0;
+    bottom: 0;
+    cursor: ew-resize;
+}
+
+#handle-left {
+    left: -5px;
+}
+
+#handle-right {
+    right: -5px;
+}
+
+#right {
+    background-color: #345678;
+}
