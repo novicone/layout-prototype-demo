@@ -72,7 +72,7 @@ function createDisplay(id) {
 
             element.classList.toggle("collapsed", info.collapsed);
         }
-    }
+    };
 }
 
 function createPreferences(prefix, defaultWidth) {
@@ -105,7 +105,7 @@ function createPreferences(prefix, defaultWidth) {
         getDefaultWidth: function () {
             return defaultWidth;
         }
-    }
+    };
 }
 
 //---------------------------------------------------------------
@@ -211,7 +211,7 @@ function createContentPane(display, minWidth) {
         },
         getWidth: function () { return width; },
         getMinWidth: function () { return minWidth; },
-    }
+    };
 }
 
 function createSidebar(display, constraints, preferences) {
@@ -252,6 +252,7 @@ function createSidebar(display, constraints, preferences) {
     }
 
     function changeSidebarWidth(value) {
+        value = Math.min(Math.max(value, constraints.min), constraints.max);
         container.changeSidebarWidth(sidebar, value);
     }
 
@@ -262,22 +263,13 @@ function createSidebar(display, constraints, preferences) {
             draw();
         },
         getWidth: function () { return width; },
-        changeWidth: function(value) {
-            value = Math.min(Math.max(value, constraints.min), constraints.max);
-            changeSidebarWidth(value);
-        },
+        changeWidth: changeSidebarWidth,
         save: savePreferences,
         toggleCollapsed: function () {
             var collapsed = !preferences.isCollapsed();
             preferences.setCollapsed(collapsed);
 
-            var width = getPreferredWidth();
-            if (!collapsed && !isWidthOverUncollapseLimit(width)) {
-                changeSidebarWidth(preferences.getDefaultWidth());
-                savePreferences();
-            } else {
-                changeSidebarWidth(width);
-            }
+            changeSidebarWidth(getPreferredWidth());
             draw();
         },
         getMinWidth: function () { return constraints.min; },
