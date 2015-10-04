@@ -134,13 +134,13 @@ function createLayoutContainer(contentPane, sidebars) {
     var items = sidebars.concat([contentPane]);
     var minWidth = contentPane.getMinWidth() + sum(sidebars, getMinWidth);
     
-    function updateWidths(availableWidth) {
+    function updateWidths() {
         var totalPreferredWidth = sum(sidebars, getPreferredWidth);
         var minItemsWidth = contentPane.getMinWidth();
         var preferredMinWidth = totalPreferredWidth + minItemsWidth;
 
-        if (preferredMinWidth > availableWidth) {
-            var remainingSpace = availableWidth - minItemsWidth;
+        if (preferredMinWidth > containerWidth) {
+            var remainingSpace = containerWidth - minItemsWidth;
             var remainingPreferredWidth = totalPreferredWidth;
             var remainingMinimumWidth = sum(sidebars, getMinWidth);
             // ustawiamy tym, co nie mają preferowanej, minimalną
@@ -165,7 +165,7 @@ function createLayoutContainer(contentPane, sidebars) {
                 sidebar.setWidth(sidebar.getPreferredWidth());
             });
             // a tym, co nie mają, proporcjonalnie przydzielamy pozostałą przestrzeń
-            contentPane.setWidth(availableWidth - totalPreferredWidth);
+            contentPane.setWidth(containerWidth - totalPreferredWidth);
         }
     }
     
@@ -191,7 +191,7 @@ function createLayoutContainer(contentPane, sidebars) {
                     item.setWidth(containerWidth * item.getMinWidth() / minWidth);
                 });
             } else {
-                updateWidths(containerWidth, sidebars);
+                updateWidths();
             }
         }
     };
